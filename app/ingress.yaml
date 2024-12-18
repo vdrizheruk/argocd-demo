@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vdryzheruk-argocd-demo-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Use the name of the ClusterIssuer
+    acme.cert-manager.io/http01-ingress-class: "nginx"  # Match your Ingress controller's class
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - vdryzheruk-argocd-demo.k8s-c1.dvsoftware.net
+    secretName: vdryzheruk-argocd-demo-tls
+  rules:
+  - host: vdryzheruk-argocd-demo.k8s-c1.dvsoftware.net
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: vdryzheruk-argocd-demo
+            port:
+              number: 80
