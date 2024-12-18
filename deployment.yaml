@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vdryzheruk-argocd-demo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: vdryzheruk-argocd-demo
+  template:
+    metadata:
+      labels:
+        app: vdryzheruk-argocd-demo
+    spec:
+      containers:
+      - image: nginx:1.26.2
+        name: vdryzheruk-argocd-demo
+        ports:
+        - containerPort: 80
