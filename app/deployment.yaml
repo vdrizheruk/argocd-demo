@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vdryzheruk-argocd-demo
 spec:
-  replicas: 3
+  replicas: 2
   revisionHistoryLimit: 3
   selector:
     matchLabels:
@@ -14,7 +14,7 @@ spec:
         app: vdryzheruk-argocd-demo
     spec:
       containers:
-      - image: nginx:1.27.3
+      - image: httpd
         name: vdryzheruk-argocd-demo
         ports:
         - containerPort: 80
